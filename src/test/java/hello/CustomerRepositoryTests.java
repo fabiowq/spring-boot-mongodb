@@ -41,15 +41,15 @@ public class CustomerRepositoryTests {
 
         repository.deleteAll();
 
-        dave = repository.save(new Customer(null, "Dave", "Matthews"));
-        oliver = repository.save(new Customer(null, "Oliver August", "Matthews"));
-        carter = repository.save(new Customer(null, "Carter", "Beauford"));
+        dave = repository.save(Customer.builder().firstName("Dave").lastName("Matthews").build());
+        oliver = repository.save(Customer.builder().firstName("Oliver August").lastName("Matthews").build());
+        carter = repository.save(Customer.builder().firstName("Carter").lastName("Beauford").build());
     }
 
     @Test
     public void setsIdOnSave() {
 
-        Customer dave = repository.save(new Customer(null, "Dave", "Matthews"));
+        Customer dave = repository.save(Customer.builder().firstName("Dave").lastName("Matthews").build());
 
         assertThat(dave.getId()).isNotNull();
     }
@@ -65,9 +65,7 @@ public class CustomerRepositoryTests {
     @Test
     public void findsByExample() {
 
-        Customer probe = new Customer(null, null, "Matthews");
-
-        List<Customer> result = repository.findAll(Example.of(probe));
+        List<Customer> result = repository.findAll(Example.of(Customer.builder().firstName("Matthews").build()));
 
         assertThat(result).hasSize(2).extracting("firstName").contains("Dave", "Oliver August");
     }

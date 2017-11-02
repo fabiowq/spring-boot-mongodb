@@ -2,17 +2,18 @@ package hello;
 
 import org.springframework.data.annotation.Id;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Value;
 
-@Data
-@AllArgsConstructor
+@Value
+@Builder
 public class Customer {
 
     @Id
-    private final String id;
-    private final String firstName;
-    private final String lastName;
+    String id;
+    String firstName;
+    String lastName;
+    String mobile;
 
 }
 
